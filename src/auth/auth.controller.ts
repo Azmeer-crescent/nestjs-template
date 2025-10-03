@@ -1,6 +1,7 @@
-import { Controller, Post, Body, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, UnauthorizedException, UseGuards, Req, Res } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
+import { AuthGuard } from '@nestjs/passport';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -52,5 +53,20 @@ export class AuthController {
   async logout(@Body() logoutDto: LogoutDto) {
     await this.authService.revokeRefreshToken(logoutDto.token);
     // return this.authService.logout(logoutDto.token);
+  }
+
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  @ApiOperation({ summary: 'Google SSO login' })
+  async googleAuth(@Req() req) { }
+
+  @Get('google/callback')
+  @UseGuards(AuthGuard('google'))
+  @ApiOperation({ summary: 'Google SSO callback' })
+  @ApiResponse({ status: 200, description: 'Successfully authenticated with Google' })
+  async googleAuthRedirect(@Req() req, @Res() res) {
+    const tokens = await this.authService.googleLogin(req.user);
+    // Redirect to frontend with tokens
+    res.redirect(`${process.env.FRONTEND_URL}/auth/callback?tokens=${JSON.stringify(tokens)}`);
   }
 }

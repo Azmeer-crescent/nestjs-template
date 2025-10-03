@@ -110,4 +110,22 @@ export class AuthService {
       await this.refreshTokenRepository.save(refreshToken);
     }
   }
+
+  async googleLogin(user: any) {
+    // Check if user exists
+    let existingUser = await this.userService.findByEmail(user.email).catch(() => null);
+
+    if (!existingUser) {
+      // Create new user if doesn't exist
+      existingUser = await this.userService.create({
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        password: Math.random().toString(36).slice(-8), // Generate random password
+      });
+    }
+
+    // Generate tokens
+    return this.generateTokens(existingUser);
+  }
 }
