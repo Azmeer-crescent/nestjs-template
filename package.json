@@ -25,9 +25,11 @@
     "migration:revert": "typeorm-ts-node-commonjs -d src/config/typeorm.datasource.ts migration:revert",
     "seed:create": "typeorm-ts-node-commonjs migration:create",
     "seed:run": "ts-node src/database/seeds/run-seed.ts",
+    "seed": "ts-node seed/seed-roles-permissions.ts",
     "db:reset": "npm run migration:revert && npm run migration:run && npm run seed:run"
   },
   "dependencies": {
+    "@casl/ability": "^6.7.3",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.2",

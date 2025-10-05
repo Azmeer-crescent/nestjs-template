@@ -7,6 +7,7 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
 import { RefreshToken } from './entities/refresh-token.entity';
 import * as crypto from 'crypto';
+import { Role } from 'src/casl/entities/role.entity';
 
 @Injectable()
 export class AuthService {
@@ -15,14 +16,20 @@ export class AuthService {
     private readonly jwtService: JwtService,
     @InjectRepository(RefreshToken)
     private refreshTokenRepository: Repository<RefreshToken>,
+    @InjectRepository(Role)
+    private readonly roleRepo: Repository<Role>,
   ) { }
 
   async register(registerDto: RegisterDto) {
     const hashedPassword = await bcrypt.hash(registerDto.password, 10);
 
     try {
+      const role = await this.roleRepo.findOne({ where: { name: 'user' } });
+      if (!role) throw new Error('Default role not found');
+
       const user = await this.userService.create({
         ...registerDto,
+        role: role,
         password: hashedPassword,
       });
 
@@ -85,7 +92,7 @@ export class AuthService {
   async refreshAccessToken(refreshTokenDto: string) {
     const refreshToken = await this.refreshTokenRepository.findOne({
       where: { token: refreshTokenDto },
-      relations: ['user'],
+      relations: ['role', 'role.permissions'],
     });
 
     if (!refreshToken || refreshToken.isRevoked || new Date() > refreshToken.expiresAt) {
@@ -114,13 +121,15 @@ export class AuthService {
   async googleLogin(user: any) {
     // Check if user exists
     let existingUser = await this.userService.findByEmail(user.email).catch(() => null);
-
+    const role = await this.roleRepo.findOne({ where: { name: 'user' } });
+    if (!role) throw new Error('Default role not found');
     if (!existingUser) {
       // Create new user if doesn't exist
       existingUser = await this.userService.create({
         email: user.email,
         firstName: user.firstName,
         lastName: user.lastName,
+        role: role,
         password: Math.random().toString(36).slice(-8), // Generate random password
       });
     }

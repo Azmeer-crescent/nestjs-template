@@ -7,6 +7,9 @@ import { getTypeOrmConfig } from './config/typeorm.config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { HealthModule } from './health.module';
+import { CaslModule } from './casl/casl.module';
+import { APP_GUARD } from '@nestjs/core';
+import { PoliciesGuard } from './casl/guards/policies.guard';
 
 @Module({
   imports: [
@@ -18,11 +21,17 @@ import { HealthModule } from './health.module';
       useFactory: getTypeOrmConfig,
       inject: [ConfigService],
     }),
+    CaslModule,
     UserModule,
     AuthModule,
-    HealthModule
+    HealthModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: PoliciesGuard
+    }],
 })
-export class AppModule {}
+export class AppModule { }

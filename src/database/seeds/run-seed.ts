@@ -1,5 +1,5 @@
 import { AppDataSource } from '../../config/typeorm.datasource';
-import { UserSeeder } from './user.seeder';
+// import { UserSeeder } from './user.seeder';
 
 async function runSeed() {
   try {
@@ -7,8 +7,8 @@ async function runSeed() {
     
     console.log('Running seeds...');
     
-    const userSeeder = new UserSeeder(AppDataSource);
-    await userSeeder.run();
+    // const userSeeder = new UserSeeder(AppDataSource);
+    // await userSeeder.run();
     
     console.log('Seeds completed successfully');
     

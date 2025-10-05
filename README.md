@@ -30,13 +30,14 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Add a new module
+## Option 1. Add a new module by creating files manually
 
 ```bash
 # Creating 'user' module. This will create 3 files.
 $ nest generate module user
 $ nest generate service user
 $ nest generate controller user
+
 ```
 ```ts
 // import the module to 'app.module.ts'
@@ -48,6 +49,21 @@ import { UserModule } from './user/user.module';
 })
 export class AppModule {}
 ```
+
+## Option 2. Add a new module with all CRUD support files
+```bash
+# Creating 'user' module. This will create 3 files with CRUD endpoints
+$ nest g resource user
+```
+#### Creates a new folder ```user/``` inside ```src/```
+ - Generate:
+   - user.controller.ts — your REST controller
+   - user.service.ts — your business logic
+   - user.module.ts — the module that wires it all  - together
+   - DTOs and entity files (if you choose to include them)
+   - Register the route in your app (if you choose REST)
+
+
 ## Testing
 ```bash
 # unit tests
