@@ -7,6 +7,7 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
 import { RefreshToken } from './entities/refresh-token.entity';
 import * as crypto from 'crypto';
+import { Role } from './entities/role.entity';
 
 @Injectable()
 export class AuthService {
@@ -15,15 +16,22 @@ export class AuthService {
     private readonly jwtService: JwtService,
     @InjectRepository(RefreshToken)
     private refreshTokenRepository: Repository<RefreshToken>,
+    @InjectRepository(Role)
+    private readonly roleRepo: Repository<Role>,
   ) { }
 
   async register(registerDto: RegisterDto) {
     const hashedPassword = await bcrypt.hash(registerDto.password, 10);
 
     try {
+      const roleEntity = await this.roleRepo.findOne({
+        where: { name: 'guest' },
+      });
+
       const user = await this.userService.create({
         ...registerDto,
         password: hashedPassword,
+        roles: roleEntity ? [roleEntity] : [], // fallback to empty array
       });
 
       return this.login(user);
@@ -114,6 +122,10 @@ export class AuthService {
   async googleLogin(user: any) {
     // Check if user exists
     let existingUser = await this.userService.findByEmail(user.email).catch(() => null);
+    
+    const roleEntity = await this.roleRepo.findOne({
+      where: { name: 'guest' },
+    });
 
     if (!existingUser) {
       // Create new user if doesn't exist
@@ -122,6 +134,7 @@ export class AuthService {
         firstName: user.firstName,
         lastName: user.lastName,
         password: Math.random().toString(36).slice(-8), // Generate random password
+        roles: roleEntity ? [roleEntity] : [], // fallback to empty array
       });
     }
 

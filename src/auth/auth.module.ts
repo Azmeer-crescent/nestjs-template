@@ -9,6 +9,8 @@ import { UserModule } from '../user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { GoogleStrategy } from './strategies/google.strategy';
+import { RoleSeeder } from './seeders/role.seeder';
+import { Role } from './entities/role.entity';
 
 @Module({
   imports: [
@@ -22,10 +24,10 @@ import { GoogleStrategy } from './strategies/google.strategy';
       }),
       inject: [ConfigService],
     }),
-    TypeOrmModule.forFeature([RefreshToken]),
+    TypeOrmModule.forFeature([RefreshToken, Role]),
   ],
-  providers: [AuthService, JwtStrategy, GoogleStrategy],
+  providers: [AuthService, JwtStrategy, GoogleStrategy, RoleSeeder],
   controllers: [AuthController],
-  exports: [AuthService],
+  exports: [AuthService, RoleSeeder],
 })
-export class AuthModule {}
+export class AuthModule { }
