@@ -7,7 +7,7 @@ import { User } from './entities/user.entity';
 import { Role } from 'src/casl/entities/role.entity';
 import { AuthModule } from 'src/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthzGuard } from 'src/casl/authz.guard';
+import { AuthzGuard } from 'src/casl/guards/authz.guard';
 
 @Module({
   imports: [

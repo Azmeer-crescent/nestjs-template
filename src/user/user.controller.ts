@@ -5,7 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { PoliciesGuard, CheckPolicies, AppAbility } from '../casl';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { AuthzGuard } from 'src/casl/authz.guard';
+import { AuthzGuard } from 'src/casl/guards/authz.guard';
 
 @ApiTags('users')
 @Controller('user')
@@ -22,8 +22,8 @@ export class UserController {
 
   @Get()
   // @UseGuards(JwtAuthGuard, PoliciesGuard)
-  @UseGuards(AuthzGuard)
-  @CheckPolicies((ability: AppAbility) => ability.can('read', 'User'))
+  // @UseGuards(AuthzGuard)
+  // @CheckPolicies((ability: AppAbility) => ability.can('read', 'User'))
   // @CheckPolicies(() => true)
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, description: 'Return all users', type: [User] })

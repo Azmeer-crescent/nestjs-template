@@ -10,7 +10,8 @@ import { HealthModule } from './health.module';
 import { CaslModule } from './casl/casl.module';
 import { APP_GUARD } from '@nestjs/core';
 import { PoliciesGuard } from './casl/guards/policies.guard';
-import { AuthzGuard } from './casl/authz.guard';
+import { AuthzGuard } from './casl/guards/authz.guard';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -26,10 +27,21 @@ import { AuthzGuard } from './casl/authz.guard';
     UserModule,
     AuthModule,
     HealthModule,
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.get('JWT_SECRET', 'your-secret-key'),
+        signOptions: { expiresIn: '1h' },
+      }),
+      inject: [ConfigService],
+    }),
   ],
   controllers: [AppController],
   providers: [
-    AppService,
+    AppService, {
+      provide: APP_GUARD,
+      useClass: AuthzGuard
+    },
   ],
 })
 export class AppModule { }

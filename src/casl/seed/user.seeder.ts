@@ -15,7 +15,6 @@ export class UserSeeder {
         private readonly roleRepo: Repository<Role>
     ) { }
 
-
     async seed() {
         const saltRounds = 10;
 

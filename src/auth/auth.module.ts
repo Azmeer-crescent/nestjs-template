@@ -10,7 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { GoogleStrategy } from './strategies/google.strategy';
 import { Role } from 'src/casl/entities/role.entity';
-import { AuthzGuard } from 'src/casl/authz.guard';
+import { AuthzGuard } from 'src/casl/guards/authz.guard';
 import { CaslModule } from 'src/casl/casl.module';
 
 @Module({
