@@ -23,15 +23,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   //   return { userId: payload.sub, email: payload.email };
   // }
 
-  async validate(payload: JwtPayload): Promise<User> {
+  async validate(payload: any): Promise<User> {
     const user = await this.userService.findByEmail(payload.email); // ✅ must return full user
     if (!user) throw new UnauthorizedException('User not found');
 
     if (!user?.role?.permissions) {
       throw new UnauthorizedException('User permissions not found');
     }
-    console.log('JWT payload:', payload);
-    console.log('Validated user:', user);
+    console.log('JwtStrategy > JWT payload:', payload);
+    console.log('JwtStrategy > Validated user:', user);
 
     return user;
   }

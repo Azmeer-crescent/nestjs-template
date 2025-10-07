@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UnauthorizedException, UseGuards, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, UnauthorizedException, UseGuards, Req, Res, Request } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -68,5 +68,17 @@ export class AuthController {
     const tokens = await this.authService.googleLogin(req.user);
     // Redirect to frontend with tokens
     res.redirect(`${process.env.FRONTEND_URL}/auth/callback?tokens=${JSON.stringify(tokens)}`);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth('access-token')
+  @ApiOperation({ summary: 'Get current user info.' })
+  @Get('profile')
+  getProfile(@Request() req) {
+    return {
+      id: req.user.id,
+      email: req.user.email,
+      roles: Array.isArray(req.user.roles) ? req.user.roles.map(r => r.name) : [], // safe fallback
+    };
   }
 }

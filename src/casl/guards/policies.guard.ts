@@ -20,17 +20,22 @@ export class PoliciesGuard implements CanActivate {
     console.log('PoliciesGuard initialized');
   }
 
+
   canActivate(context: ExecutionContext): boolean | Promise<boolean> {
+
     const request = context.switchToHttp().getRequest();
     const user = request.user;
 
     // console.log('PoliciesGuard: request =', request);
-    console.log('PoliciesGuard: user =', user);
+    console.log('PoliciesGuard > canActivate: user-a =', user);
+    console.log('PoliciesGuard > canActivate: user-b =', context.switchToHttp().getRequest().user);
+
 
     const policyHandler = this.reflector.get<PolicyHandlerCallback>(
       CHECK_POLICIES_KEY,
       context.getHandler(),
     );
+
 
     console.log('PoliciesGuard: policyHandler =', policyHandler);
 

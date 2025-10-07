@@ -10,6 +10,7 @@ import { HealthModule } from './health.module';
 import { CaslModule } from './casl/casl.module';
 import { APP_GUARD } from '@nestjs/core';
 import { PoliciesGuard } from './casl/guards/policies.guard';
+import { AuthzGuard } from './casl/authz.guard';
 
 @Module({
   imports: [
@@ -29,9 +30,16 @@ import { PoliciesGuard } from './casl/guards/policies.guard';
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_GUARD,
-      useClass: PoliciesGuard
-    }],
+  ],
 })
 export class AppModule { }
+
+/**
+providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthzGuard
+    }],
+ 
+ */

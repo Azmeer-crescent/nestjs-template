@@ -7,7 +7,7 @@ import { Role } from '../entities/role.entity';
 import * as bcrypt from 'bcrypt';
 
 @Injectable()
-export class UserSeeder  {
+export class UserSeeder {
     constructor(
         @InjectRepository(User)
         private readonly userRepo: Repository<User>,
@@ -40,6 +40,13 @@ export class UserSeeder  {
                 firstName: 'Regular',
                 lastName: 'User',
                 roleName: 'user',
+            },
+            {
+                email: 'guest@example.com',
+                password: 'guest123',
+                firstName: 'Regular',
+                lastName: 'Guest',
+                roleName: 'guest',
             },
         ];
 

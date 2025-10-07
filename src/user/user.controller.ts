@@ -21,10 +21,10 @@ export class UserController {
   }
 
   @Get()
-  @UseGuards(PoliciesGuard)
-  // @UseGuards(AuthzGuard)
-  // @CheckPolicies((ability: AppAbility) => ability.can('read', 'User'))
-  @CheckPolicies(() => true)
+  // @UseGuards(JwtAuthGuard, PoliciesGuard)
+  @UseGuards(AuthzGuard)
+  @CheckPolicies((ability: AppAbility) => ability.can('read', 'User'))
+  // @CheckPolicies(() => true)
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, description: 'Return all users', type: [User] })
   @ApiBearerAuth('access-token')
@@ -38,7 +38,16 @@ export class UserController {
   @ApiBearerAuth('access-token')
   getDebug(@Request() req) {
     console.log('Debug user:', req.user);
-    return req.user;
+    console.log('Debug role:', req.user.role);
+    console.log('Debug Permissions:', req.user.role.permissions);
+    console.log('User roles:', Array.isArray(req.user.role) ? req.user.role.map(r => r.name) : []);
+    console.log('Permissions:', Array.isArray(req.user.role) ? req.user.role.flatMap(r => r.permissions.map(p => p.name)) : []);
+
+    return {
+      id: req.user.id,
+      email: req.user.email,
+      roles: Array.isArray(req.user.roles) ? req.user.roles.map(r => r.name) : [], // safe fallback
+    };
   }
 
 }
