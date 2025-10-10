@@ -8,6 +8,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LogoutDto } from './dto/logout.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { Public } from 'src/casl/decorators/public.decorator';
+import { SkipAuthz } from 'src/casl/decorators/skipauthz.decorator';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -73,6 +74,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @SkipAuthz()
   @ApiBearerAuth('access-token')
   @ApiOperation({ summary: 'Get current user info.' })
   @Get('profile')

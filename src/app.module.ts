@@ -12,6 +12,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { PoliciesGuard } from './casl/guards/policies.guard';
 import { AuthzGuard } from './casl/guards/authz.guard';
 import { JwtModule } from '@nestjs/jwt';
+import { DemoModule } from './demo/demo.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { JwtModule } from '@nestjs/jwt';
       }),
       inject: [ConfigService],
     }),
+    DemoModule,
   ],
   controllers: [AppController],
   providers: [

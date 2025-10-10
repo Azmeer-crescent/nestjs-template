@@ -1,3 +1,13 @@
+/**
+ * Authorization Guard using CASL
+ * Checks if the user has the necessary permissions to access a resource
+ * based on their role and the defined policies.
+ * 
+ * @public() --> Marks routes as public (no auth required)
+ * @skipAuthz() --> Skips authorization check for the route
+ * @UseGuards(AuthzGuard) --> Apply this guard to a route or controller. Which checks for permissions for the route
+ * 
+ */
 import {
     Injectable,
     CanActivate,
@@ -13,6 +23,7 @@ import { CaslAbilityFactory } from '../casl-ability.factory';
 import { CHECK_POLICIES_KEY } from '../decorators/check-policies.decorator';
 import { PolicyHandlerCallback } from '../types';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
+import { SKIP_AUTHZ_KEY } from '../decorators/skipauthz.decorator';
 
 type PolicyHandler = PolicyHandlerCallback | { handle: PolicyHandlerCallback };
 
@@ -25,16 +36,17 @@ export class AuthzGuard implements CanActivate {
         private readonly abilityFactory: CaslAbilityFactory,
         private readonly configService: ConfigService,
     ) {
-        console.log('AuthzGuard > constructor');
     }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
-        console.log('AuthzGuard > canActivate called');
 
         //dont check permission for public routes
         const isPublic = this.reflector.get<boolean>(IS_PUBLIC_KEY, context.getHandler());
         if (isPublic) return true;
 
+        //skip authz check if @SkipAuthz is present
+        const skipAuthz = this.reflector.get<boolean>(SKIP_AUTHZ_KEY, context.getHandler());
+        if (skipAuthz) return true;
 
         const request = context.switchToHttp().getRequest();
         const authHeader = request.headers?.['authorization'];
