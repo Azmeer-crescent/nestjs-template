@@ -1,0 +1,6 @@
+action,subject
+create,User
+read,User
+update,User
+delete,User
+manage,all

@@ -3,9 +3,9 @@
  * Checks if the user has the necessary permissions to access a resource
  * based on their role and the defined policies.
  * 
- * @public() --> Marks routes as public (no auth required)
- * @skipAuthz() --> Skips authorization check for the route
- * @UseGuards(AuthzGuard) --> Apply this guard to a route or controller. Which checks for permissions for the route
+ * @Public() --> Marks routes as public (no auth required)
+ * @SkipAuthz() --> Skips authorization check for the route
+ * @UseGuards(AuthzGuard) --> Apply this guard to a route or controller. Which checks for permissions for the route. This is applied by default to all routes
  * 
  */
 import {

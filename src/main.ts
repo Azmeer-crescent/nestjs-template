@@ -31,8 +31,6 @@ async function bootstrap() {
       },
       'access-token', // this name must match your @ApiBearerAuth()
     ) // Add this line to enable bearer auth
-    .addTag('auth')
-    .addTag('users')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

@@ -21,12 +21,11 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:create": "typeorm-ts-node-commonjs migration:create",
     "migration:generate": "typeorm-ts-node-commonjs -d src/config/typeorm.datasource.ts migration:generate",
-    "migration:run": "typeorm-ts-node-commonjs -d src/config/typeorm.datasource.ts migration:run",
     "migration:revert": "typeorm-ts-node-commonjs -d src/config/typeorm.datasource.ts migration:revert",
-    "seed:create": "typeorm-ts-node-commonjs migration:create",
-    "seed:run": "ts-node src/database/seeds/run-seed.ts",
-    "seed": "ts-node seed/seed-roles-permissions.ts",
-    "db:reset": "npm run migration:revert && npm run migration:run && npm run seed:run"
+    "schema:drop": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js schema:drop --dataSource src/config/typeorm.datasource.ts",
+    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run --dataSource src/config/typeorm.datasource.ts",
+    "seed:run": "ts-node -r tsconfig-paths/register src/database/seed/run-seed.ts",
+    "db:reset": "npm run schema:drop && npm run migration:run && npm run seed:run"
   },
   "dependencies": {
     "@casl/ability": "^6.7.3",
@@ -45,6 +44,7 @@
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
+    "csv-parser": "^3.2.0",
     "helmet": "^8.1.0",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",

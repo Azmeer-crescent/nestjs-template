@@ -9,10 +9,12 @@ import { RoleSeeder } from './seed/role.seeder';
 import { PermissionSeeder } from './seed/permission.seeder';
 import { RolePermissionSeeder } from './seed/role-permission.seeder';
 import { UserSeeder } from './seed/user.seeder';
-import { CaslSeedOrchestrator } from './seed/casl-seed-orchestrator';
+import { CommonModule } from 'src/common/common.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Role, Permission])], // ✅ Only entities here
+  imports: [
+    TypeOrmModule.forFeature([User, Role, Permission]), 
+    CommonModule],
   providers: [
     CaslAbilityFactory,
     CaslAbilityService,
@@ -20,9 +22,14 @@ import { CaslSeedOrchestrator } from './seed/casl-seed-orchestrator';
     PermissionSeeder,
     RolePermissionSeeder,
     UserSeeder,
-    CaslSeedOrchestrator
   ],
-  exports: [CaslAbilityService, CaslAbilityFactory],
+  exports: [
+    CaslAbilityService,
+    CaslAbilityFactory,
+    RoleSeeder,
+    PermissionSeeder,
+    RolePermissionSeeder,
+    UserSeeder,],
 })
 export class CaslModule { }
 

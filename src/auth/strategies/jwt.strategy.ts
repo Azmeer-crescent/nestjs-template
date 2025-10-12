@@ -30,8 +30,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     if (!user?.role?.permissions) {
       throw new UnauthorizedException('User permissions not found');
     }
-    console.log('JwtStrategy > JWT payload:', payload);
-    console.log('JwtStrategy > Validated user:', user);
+    // console.log('JwtStrategy > JWT payload:', payload);
+    // console.log('JwtStrategy > Validated user:', user);
 
     return user;
   }

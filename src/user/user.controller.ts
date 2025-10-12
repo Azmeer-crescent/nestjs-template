@@ -7,7 +7,7 @@ import { PoliciesGuard, CheckPolicies, AppAbility } from '../casl';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { AuthzGuard } from 'src/casl/guards/authz.guard';
 
-@ApiTags('users')
+@ApiTags('Users')
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) { }

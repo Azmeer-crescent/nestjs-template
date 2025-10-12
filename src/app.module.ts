@@ -13,6 +13,7 @@ import { PoliciesGuard } from './casl/guards/policies.guard';
 import { AuthzGuard } from './casl/guards/authz.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { DemoModule } from './demo/demo.module';
+import { CountryModule } from './country/country.module';
 
 @Module({
   imports: [
@@ -24,10 +25,6 @@ import { DemoModule } from './demo/demo.module';
       useFactory: getTypeOrmConfig,
       inject: [ConfigService],
     }),
-    CaslModule,
-    UserModule,
-    AuthModule,
-    HealthModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -36,7 +33,12 @@ import { DemoModule } from './demo/demo.module';
       }),
       inject: [ConfigService],
     }),
+    CaslModule,
+    UserModule,
+    AuthModule,
+    HealthModule,
     DemoModule,
+    CountryModule,
   ],
   controllers: [AppController],
   providers: [

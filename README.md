@@ -97,6 +97,9 @@ Check out a few resources that may come in handy when working with NestJS:
 - Deploy application to AWS with the help of [NestJS Mau](https://mau.nestjs.com)
 - Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
 
+## Todo
+
+- Move CASL seeder to run-seed.ts from casl module autorun
 
 ## Stay in touch
 

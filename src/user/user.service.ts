@@ -54,11 +54,13 @@ export class UserService {
     if (!user) {
       throw new NotFoundException(`User with email ${email} not found`);
     }
+    /*
     console.log('user_service > findByEmail > Found user:', user);
     console.log('Permissions:', user.role.permissions.map(p => ({
       action: p.action,
       subject: p.subject,
     })));
+    */
 
     return user;
   }
