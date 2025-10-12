@@ -10,8 +10,8 @@ import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { Public } from 'src/casl/decorators/public.decorator';
 import { SkipAuthz } from 'src/casl/decorators/skipauthz.decorator';
 
-@ApiTags('auth')
 @Controller('auth')
+@ApiTags('Auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
 

@@ -33,10 +33,13 @@ $ npm run start:prod
 ## Option 1. Add a new module by creating files manually
 
 ```bash
-# Creating 'user' module. This will create 3 files.
-$ nest generate module user
-$ nest generate service user
-$ nest generate controller user
+# Creating 'demo' module. This will create 3 files.
+$ nest g module demo
+$ nest g service demo
+$ nest g controller demo
+
+# create bookcontroller.ts inside/demo (--flat stop creating a subfolder)
+$ nest g controller demo/book --flat
 
 ```
 ```ts
@@ -50,7 +53,7 @@ import { UserModule } from './user/user.module';
 export class AppModule {}
 ```
 
-## Option 2. Add a new module with all CRUD support files
+## Option 2. Add a new module with all CRUD & support files
 ```bash
 # Creating 'user' module. This will create 3 files with CRUD endpoints
 $ nest g resource user
@@ -97,6 +100,14 @@ Check out a few resources that may come in handy when working with NestJS:
 - Deploy application to AWS with the help of [NestJS Mau](https://mau.nestjs.com)
 - Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
 
+## Features
+
+- JWT authentican
+- Google SSO with Passport
+- Permission system with CASL
+- CSV importer service
+- Look-ahead service (for auto-typing)
+- Fully functional 'demo' module (book & authors)
 ## Todo
 
 - Move CASL seeder to run-seed.ts from casl module autorun

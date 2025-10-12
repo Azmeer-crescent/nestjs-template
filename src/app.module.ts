@@ -14,6 +14,7 @@ import { AuthzGuard } from './casl/guards/authz.guard';
 import { JwtModule } from '@nestjs/jwt';
 import { DemoModule } from './demo/demo.module';
 import { CountryModule } from './country/country.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -32,6 +33,10 @@ import { CountryModule } from './country/country.module';
         signOptions: { expiresIn: '1h' },
       }),
       inject: [ConfigService],
+    }),
+    CacheModule.register({
+      ttl: 3600, // cache for 1 hour
+      max: 100,  // max items in cache
     }),
     CaslModule,
     UserModule,
