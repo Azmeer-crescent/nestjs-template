@@ -22,18 +22,18 @@ export class AuthorService {
   }
 
   async findOne(id: number) {
-    return this.authorRepo.findOneBy({ id });
+    return this.authorRepo.findOne({ where: { id } });
   }
 
   async update(id: number, dto: UpdateAuthorDto) {
-    const author = await this.authorRepo.findOneBy({ id });
+    const author = await this.authorRepo.findOne({ where: { id } });
     if (!author) throw new NotFoundException('Author not found');
     Object.assign(author, dto);
     return this.authorRepo.save(author);
   }
 
   async remove(id: number) {
-    const author = await this.authorRepo.findOneBy({ id });
+    const author = await this.authorRepo.findOne({ where: { id } });
     if (!author) throw new NotFoundException('Author not found');
     return this.authorRepo.remove(author);
   }

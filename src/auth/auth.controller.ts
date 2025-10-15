@@ -7,8 +7,8 @@ import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LogoutDto } from './dto/logout.dto';
 import { RefreshTokenDto } from './dto/refresh-token.dto';
-import { Public } from 'src/casl/decorators/public.decorator';
-import { SkipAuthz } from 'src/casl/decorators/skipauthz.decorator';
+import { Public } from '../casl/decorators/public.decorator';
+import { SkipAuthz } from '../casl/decorators/skipauthz.decorator';
 
 @Controller('auth')
 @ApiTags('Auth')

@@ -66,6 +66,15 @@ $ nest g resource user
    - DTOs and entity files (if you choose to include them)
    - Register the route in your app (if you choose REST)
 
+<hr>
+
+## Docker
+Use the `dev` container for development 
+```bash
+docker-compose -f docker-compose.dev.yml up --build -d
+# go inside Docker terminal (ie:exec) and run following command to seed the data
+npm run db:reset
+``` 
 
 ## Testing
 ```bash

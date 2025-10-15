@@ -3,7 +3,7 @@ import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Permission } from '../entities/permission.entity';
 import { Repository } from 'typeorm';
-import { CsvSeederService } from 'src/common/services/csv-seeder.service';
+import { CsvSeederService } from '../../common/services/csv-seeder.service';
 import { PermissionCsvDto } from '../dto/permission-csv.dto';
 
 @Injectable()

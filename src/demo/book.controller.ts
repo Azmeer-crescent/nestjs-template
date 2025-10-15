@@ -5,8 +5,8 @@ import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { ApiBearerAuth, ApiBody, ApiExtraModels, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiTags, getSchemaPath } from '@nestjs/swagger';
 import { Book } from './entities/book.entity';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { SkipAuthz } from 'src/casl/decorators/skipauthz.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { SkipAuthz } from '../casl/decorators/skipauthz.decorator';
 
 @Controller('books')
 @ApiTags('Books')

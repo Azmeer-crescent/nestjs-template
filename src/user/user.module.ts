@@ -4,10 +4,10 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { CaslModule } from '../casl/casl.module';
 import { User } from './entities/user.entity';
-import { Role } from 'src/casl/entities/role.entity';
-import { AuthModule } from 'src/auth/auth.module';
+import { Role } from '../casl/entities/role.entity';
+import { AuthModule } from '../auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
-import { AuthzGuard } from 'src/casl/guards/authz.guard';
+import { AuthzGuard } from '../casl/guards/authz.guard';
 
 @Module({
   imports: [

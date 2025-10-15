@@ -3,8 +3,8 @@ import { AuthorService } from './author.service';
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { SkipAuthz } from 'src/casl/decorators/skipauthz.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { SkipAuthz } from '../casl/decorators/skipauthz.decorator';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 

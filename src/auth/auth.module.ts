@@ -9,9 +9,9 @@ import { UserModule } from '../user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { GoogleStrategy } from './strategies/google.strategy';
-import { Role } from 'src/casl/entities/role.entity';
-import { AuthzGuard } from 'src/casl/guards/authz.guard';
-import { CaslModule } from 'src/casl/casl.module';
+import { Role } from '../casl/entities/role.entity';
+import { AuthzGuard } from '../casl/guards/authz.guard';
+import { CaslModule } from '../casl/casl.module';
 
 @Module({
   imports: [

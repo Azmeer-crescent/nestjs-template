@@ -23,7 +23,11 @@ export class CountryService {
   async findAll(): Promise<Country[]> {
     const cacheKey = 'countries:all';
     const cached = await this.cacheManager.get<Country[]>(cacheKey);
-    if (cached) return cached;
+    if (cached) {
+      console.log('[CACHE HIT]', cacheKey);
+      return cached;
+    }
+    console.log('[DB HIT]', cacheKey);
 
     const countries = await this.countryRepository.find({ order: { name: 'ASC' } });
     await this.cacheManager.set(cacheKey, countries, 3600); // cache for 1 hour

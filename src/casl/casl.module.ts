@@ -9,7 +9,7 @@ import { RoleSeeder } from './seed/role.seeder';
 import { PermissionSeeder } from './seed/permission.seeder';
 import { RolePermissionSeeder } from './seed/role-permission.seeder';
 import { UserSeeder } from './seed/user.seeder';
-import { CommonModule } from 'src/common/common.module';
+import { CommonModule } from '../common/common.module';
 
 @Module({
   imports: [

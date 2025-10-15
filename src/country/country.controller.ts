@@ -2,11 +2,11 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } f
 import { CountryService } from './country.service';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { UpdateCountryDto } from './dto/update-country.dto';
-import { Public } from 'src/casl/decorators/public.decorator';
+import { Public } from '../casl/decorators/public.decorator';
 import { ApiBearerAuth, ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { SkipAuthz } from 'src/casl/decorators/skipauthz.decorator';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { LookAheadQueryDto } from 'src/common/dto/lookahead-query.dto';
+import { SkipAuthz } from '../casl/decorators/skipauthz.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { LookAheadQueryDto } from '../common/dto/lookahead-query.dto';
 import { Country } from './entities/country.entity';
 
 @Controller('country')

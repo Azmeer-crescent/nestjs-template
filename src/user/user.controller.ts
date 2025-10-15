@@ -4,8 +4,8 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { PoliciesGuard, CheckPolicies, AppAbility } from '../casl';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { AuthzGuard } from 'src/casl/guards/authz.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AuthzGuard } from '../casl/guards/authz.guard';
 
 @ApiTags('Users')
 @Controller('user')

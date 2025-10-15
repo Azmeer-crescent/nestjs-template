@@ -35,6 +35,7 @@ import { CacheModule } from '@nestjs/cache-manager';
       inject: [ConfigService],
     }),
     CacheModule.register({
+      isGlobal: true, // ✅ Makes CACHE_MANAGER available in all modules
       ttl: 3600, // cache for 1 hour
       max: 100,  // max items in cache
     }),

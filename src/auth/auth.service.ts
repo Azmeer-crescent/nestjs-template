@@ -7,7 +7,7 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
 import { RefreshToken } from './entities/refresh-token.entity';
 import * as crypto from 'crypto';
-import { Role } from 'src/casl/entities/role.entity';
+import { Role } from '../casl/entities/role.entity';
 
 @Injectable()
 export class AuthService {
